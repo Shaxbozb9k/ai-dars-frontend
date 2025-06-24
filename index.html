@@ -48,7 +48,7 @@
       const resDiv = document.getElementById("result");
       resDiv.textContent = "⏳ AI javob tayyorlamoqda...";
       try {
-        const res = await fetch("https://ai-dars-server.onrender.com/ai", {
+        const res = await fetch("https://ai-dars-frontend.vercel.app/", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ topic, type })
