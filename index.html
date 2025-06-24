@@ -43,22 +43,30 @@
   <div id="result"></div>
 
   <script>
-    async function send(type) {
-      const topic = document.getElementById("topic").value;
-      const resDiv = document.getElementById("result");
-      resDiv.textContent = "⏳ AI javob tayyorlamoqda...";
-      try {
-        const res = await fetch("https://ai-dars-frontend.vercel.app/", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ topic, type })
-        });
-        const data = await res.json();
-        resDiv.textContent = data.reply;
-      } catch (err) {
-        resDiv.textContent = "❌ Xatolik: Javob olishda muammo yuz berdi.";
+  async function send(type) {
+    const topic = document.getElementById("topic").value;
+    const resDiv = document.getElementById("result");
+    resDiv.textContent = "⏳ AI javob tayyorlamoqda...";
+
+    try {
+      const res = await fetch("https://judicious-navy-poison.onrender.com/ai", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ topic, type })
+      });
+
+      if (!res.ok) {
+        throw new Error("Server xatosi: " + res.status);
       }
+
+      const data = await res.json();
+      resDiv.textContent = data.reply;
+
+    } catch (err) {
+      console.error("Xatolik:", err);
+      resDiv.textContent = "❌ Xatolik: AI bilan aloqa o‘rnab bo‘lmadi.";
     }
-  </script>
+  }
+</script>
 </body>
 </html>
