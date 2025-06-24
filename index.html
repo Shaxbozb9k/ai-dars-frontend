@@ -46,27 +46,28 @@
   async function send(type) {
     const topic = document.getElementById("topic").value;
     const resDiv = document.getElementById("result");
-    resDiv.textContent = "⏳ AI javob tayyorlamoqda...";
+    resDiv.textContent = "⏳ AI javob tayyorlanmoqda...";
 
     try {
       const res = await fetch("https://judicious-navy-poison.onrender.com/ai", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json"
+        },
         body: JSON.stringify({ topic, type })
       });
 
-      if (!res.ok) {
-        throw new Error("Server xatosi: " + res.status);
-      }
+      if (!res.ok) throw new Error("AI server javob qaytarmadi");
 
       const data = await res.json();
       resDiv.textContent = data.reply;
 
     } catch (err) {
-      console.error("Xatolik:", err);
-      resDiv.textContent = "❌ Xatolik: AI bilan aloqa o‘rnab bo‘lmadi.";
+      console.error(err);
+      resDiv.textContent = "❌ Xatolik: Javob olishda muammo yuz berdi.";
     }
   }
 </script>
+
 </body>
 </html>
